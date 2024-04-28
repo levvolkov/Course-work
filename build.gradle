@@ -37,7 +37,6 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
 
     testImplementation 'io.qameta.allure:allure-selenide:2.20.1'
-
 }
 
 test {
@@ -48,7 +47,7 @@ test {
 
     // задаем системное свойство, значение по умолчанию или
     // ./gradlew clean test -Ddb.url=jdbc:mysql://localhost:3306/app  в терминале при запуске тестов
-    systemProperty 'db.url', System.getProperty('db.url',"jdbc:mysql://localhost:3306/app")
+    systemProperty 'db.url', System.getProperty('db.url', "jdbc:mysql://localhost:3306/app")
     // свойство chromeoptions.prefs используется для задания настроек браузера в проектах на основе Selenide, выключаем менеджер паролей
     systemProperty 'chromeoptions.prefs', System.getProperty('chromeoptions.prefs', "profile.password_manager_leak_detection=false")
 }
