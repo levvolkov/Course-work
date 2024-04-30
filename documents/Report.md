@@ -19,6 +19,6 @@
   *  Добавить тестовую метку `data-test-id` что позволит легче искать правильные селекторы и обращаться к ним в автотестах.
 
  </br>
-<p align="center"><img  width="845" alt="Снимок экрана 2024-04-30 в 18 46 04" src="https://github.com/LevVolkov/course-test/assets/88002142/fb4e9fd9-936c-4759-a8d6-7bd3e6ff9289"></p>
+<p align="center"><img width="845" alt="product_defects" src="https://github.com/LevVolkov/Course-work/assets/88002142/957aa22b-bd66-4c71-8405-1cc861aa2c80"></p>
 
-<p align="center"><img align="center" width="845" alt="Снимок экрана 2024-04-30 в 18 43 58" src="https://github.com/LevVolkov/course-test/assets/88002142/f2882357-5278-4e5f-97db-88d0fb7d7aa6"></p>
+<p align="center"><img width="845" alt="passed" src="https://github.com/LevVolkov/Course-work/assets/88002142/7fd56f51-a683-4b67-8f49-5a6b3b0aa9b9"></p>
