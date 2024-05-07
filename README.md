@@ -1,3 +1,7 @@
+
+***<p align="left">Задание <a href="https://github.com/LevVolkov/Course-work/blob/master/documents/Exercise.md"> курсовой работы </a>.</p>***
+</br>
+
 <h1 align="center"> Процедура запуска автотестов.</h1>
 </br>
 
