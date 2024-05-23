@@ -5,7 +5,7 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 import ru.netology.data.DataHelper;
 import ru.netology.data.SQLHelper;
-import ru.netology.page.PaymentPage;
+import ru.netology.page.DashboardPage;
 import ru.netology.page.PurchasePage;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -34,9 +34,9 @@ public class BuyingTourTest {
     @DisplayName("Покупка APPROVED карта")
     void theCardPaymentMustBeApproved() {
         var cardinfo = new DataHelper.CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), getValidCVC());
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboarpage = new DashboardPage();
+        dashboarpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(cardinfo);
         form.paymentSuccessfull();
         assertEquals("APPROVED", SQLHelper.getPaymentStatus());
@@ -46,9 +46,9 @@ public class BuyingTourTest {
     @DisplayName("Покупка DECLINED кредитной картой")
     void theCardPaymentMustBeDeclined() {
         var cardinfo = new DataHelper.CardInfo(getDeclinedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), getValidCVC());
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCreditCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payCreditCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(cardinfo);
         form.declinedPayment();
         assertEquals("DECLINED", SQLHelper.getPaymentStatus());
@@ -57,9 +57,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Номер карты из одних нулей ")
     public void isZeroCard() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getCardNumberZero());
         form.declinedPayment();
     }
@@ -67,9 +67,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Ввод менее 16 цифр в поле номер карты")
     public void lessCard16() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getCardNumberLess());
         form.invalidCardFormat();
     }
@@ -77,9 +77,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Ввод в поле номер карты цифр и спецсимвола")
     public void symbolCard() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getCardNumberSymbol());
         form.invalidCardFormat();
     }
@@ -87,9 +87,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Ввод в поле номер карты цифр и кириллицы")
     public void cyrillicCard() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getCardNumberCyrillic());
         form.invalidCardFormat();
     }
@@ -97,9 +97,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Ввод в поле номер карты цифр и латиницы")
     public void latinCard() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getCardNumberLatin());
         form.invalidCardFormat();
     }
@@ -107,9 +107,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Незаполненный номер карты")
     public void emptyCard() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getCardNumberEmpty());
         form.invalidCardFormat();
     }
@@ -117,9 +117,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Поле месяц более 12 ")
     public void moreThanMonth12() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getMonth13());
         form.invalidCardExpirationDate();
     }
@@ -127,9 +127,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Ноль в поле месяц")
     public void zeroMonth() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getMonthZero());
         form.monthNotValid();
     }
@@ -137,9 +137,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Ввод в поле месяц цифры и спецсимвола")
     public void simbolMonth() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getMonthSymbol());
         form.monthNotValid();
     }
@@ -147,9 +147,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Ввод в поле месяц цифры и буквы")
     public void letterMonth() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getMonthLatin());
         form.monthNotValid();
     }
@@ -157,9 +157,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Одна цифра в поле месяц")
     public void oneDigitMonth() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getMonthOneDigit());
         form.monthNotValid();
     }
@@ -167,9 +167,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Два нуля в поле месяц")
     public void twoZerosMonth() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getMonthTwoZeros());
         form.monthNotValid();
     }
@@ -177,9 +177,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Поле месяц не заполнено")
     public void emptyMonth() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getMonthEmpty());
         form.monthNotValid();
     }
@@ -187,9 +187,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Год меньше текущего на 1 год")
     public void lessThanCurrentOneYear() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getYearLessThanCurrent());
         form.theСardExpired();
     }
@@ -197,9 +197,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Год больше текущего на 10 лет")
     public void yearLongerThanTheCurrent() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getYearMoreThanTheCurrentOne());
         form.invalidCardExpirationDate();
     }
@@ -207,9 +207,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Ввод в поле год цифры и спецсимволов")
     public void symbolYear() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getYearSymbol());
         form.yearNotValid();
     }
@@ -217,9 +217,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Ввод в поле год цифры и буквы")
     public void letterYear() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getYearLatin());
         form.yearNotValid();
     }
@@ -227,9 +227,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Поле год одна цифра")
     public void oneDigitYear() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getYearOneDigit());
         form.yearNotValid();
     }
@@ -237,9 +237,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Поле год не заполнено")
     public void notValidEmptyYear() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getYearEmpty());
         form.yearNotValid();
     }
@@ -247,9 +247,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Поле владелец на кириллице")
     public void cyrillicInHolder() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getHolderCyrillic());
         form.ownerNotValid();
     }
@@ -257,9 +257,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Спецсимвол в поле владелец")
     public void symbolInHolder() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getHolderSymbol());
         form.ownerNotValid();
     }
@@ -267,9 +267,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Цифра в поле владелец")
     public void digitInHolder() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getHolderDigit());
         form.ownerNotValid();
     }
@@ -277,9 +277,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Одна буква в поле владелец")
     public void oneLetterInHolder() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getHolderOneLetter());
         form.ownerNotValid();
     }
@@ -287,9 +287,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Более 100 букв в поле владелец")
     public void moreThan100lettersPerHolder() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getHolderMoreThan100());
         form.ownerNotValid();
     }
@@ -297,9 +297,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Незаполненное поле владелец")
     public void emptyInHolder() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getHolderEmpty());
         form.ownerNotValid();
     }
@@ -307,9 +307,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Ввод в поле CVC/CVV цифры и спецсимвола")
     public void symbolInCVC() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getCVCSymbol());
         form.cvcNotValid();
     }
@@ -317,9 +317,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Ввод в поле CVC/CVV цифры и буквы")
     public void lettersInCVC() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getCVCLetter());
         form.cvcNotValid();
     }
@@ -327,9 +327,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Ввод в поле CVC/CVV одной цифры")
     public void oneDigitInCVC() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getCVConeDigit());
         form.cvcNotValid();
     }
@@ -337,9 +337,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Ввод в поле CVC/CVV двух цифр")
     public void twoDigitInCVC() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getCVCtwoDigit());
         form.cvcNotValid();
     }
@@ -347,9 +347,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("CVC/CVV заполнен нулями")
     public void filledWidthZeroInCVC() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getCVC000());
         form.cvcNotValid();
     }
@@ -357,9 +357,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Незаполненное поле CVC/CVV")
     public void emptyInCVC() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
         form.fillingOutTheForm(DataHelper.getCVCempty());
         form.ownerNotValid();
     }
@@ -367,9 +367,9 @@ public class BuyingTourTest {
     @Test
     @DisplayName("Незаполненная форма")
     void sendAnEmptyPurchaseForm() {
-        var purchasepage = new PurchasePage();
-        purchasepage.BuyCard();
-        var form = new PaymentPage();
-        form.emptyform();
+        var dashboardpage = new DashboardPage();
+        dashboardpage.payBuyCard();
+        var form = new PurchasePage();
+        form.emptyForm();
     }
 }

@@ -6,6 +6,7 @@ import lombok.Value;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Random;
 
 import static java.lang.String.format;
 
@@ -20,11 +21,11 @@ public class DataHelper {
     // данные карты
     @Value
     public static class CardInfo {
-        String cardnumber;
+        String cardNumber;
         String month;
         String year;
         String holder;
-        String codcvccvv;
+        String codCvcCvv;
     }
 
     // заполнение поля "Номер карты"
@@ -98,16 +99,28 @@ public class DataHelper {
 
     // Заполнение поля "Год"
     public static String getValidYear() {
-        return LocalDate.now().plusYears(0).format(DateTimeFormatter.ofPattern("yy"));
+        Random random = new Random();
+        int year = random.nextInt(3);
+        return LocalDate.now().plusYears(year).format(DateTimeFormatter.ofPattern("yy"));
     }
 
     // Заполнение поля "Год" не валидными символами
+    public static String getPastYear() {
+        LocalDate localDate = LocalDate.now();
+        return String.format("%ty", localDate.minusYears(1));
+    }
+
+    public static String getYearMore() {
+        LocalDate localDate = LocalDate.now();
+        return String.format("%ty", localDate.plusYears(10));
+    }
+
     public static CardInfo getYearLessThanCurrent() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), "23", getValidHolder(), getValidCVC());
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getPastYear(), getValidHolder(), getValidCVC());
     }
 
     public static CardInfo getYearMoreThanTheCurrentOne() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), "34", getValidHolder(), getValidCVC());
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getYearMore(), getValidHolder(), getValidCVC());
     }
 
     public static CardInfo getYearSymbol() {

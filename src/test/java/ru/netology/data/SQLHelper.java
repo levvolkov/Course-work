@@ -1,7 +1,6 @@
 package ru.netology.data;
 
 import lombok.SneakyThrows;
-import lombok.val;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
@@ -10,21 +9,21 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class SQLHelper {
-    private static final QueryRunner runner = new QueryRunner();
 
     private SQLHelper() {
     }
 
     // метод который умеет возвращать подключение к БД
-    private static Connection getConn() throws SQLException {
+    @SneakyThrows
+    private static Connection getConn() {
         return DriverManager.getConnection(System.getProperty("db.url"), "app", "pass");
     }
 
     @SneakyThrows
     public static void deleteTable() {
-        val deletePaymentEntity = "DELETE FROM payment_entity ";
-        val runner = new QueryRunner();
-        try (val conn = getConn()) {
+        var deletePaymentEntity = "DELETE FROM payment_entity ";
+        var runner = new QueryRunner();
+        try (var conn = getConn()) {
             runner.update(conn, deletePaymentEntity);
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
@@ -39,8 +38,8 @@ public class SQLHelper {
 
     @SneakyThrows
     private static String getStatus(String query) {
-        val runner = new QueryRunner();
-        try (val conn = getConn()) {
+        var runner = new QueryRunner();
+        try (var conn = getConn()) {
             String status = runner.query(conn, query, new ScalarHandler<String>());
             return status;
         }
